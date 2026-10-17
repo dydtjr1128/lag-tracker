@@ -1,0 +1,112 @@
+name: Parent issue
+description: Split a shared goal into direct children and track scope, order, and integrated acceptance criteria
+title: "[Parent] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **How to write this**
+        - **Role**: a parent has no implementation PR of its own. It tracks the results of children that can finish independently, their order, and the integrated acceptance criteria. Do not create a parent just because there are several PRs
+        - **Splitting PRs**: when the same acceptance criteria are delivered in several PRs, track them in a bug report or feature form
+        - **Intermediate parents**: use this form for a parent under another parent only when it owns a distinct integrated result, and state why it is separate from its direct parent. Express simple area or order groupings as a table
+        - **Title**: a short shared goal after `[Parent]`. Example: `[Parent] Phase 1 steady recording`
+        - **Links**: link direct children as GitHub sub-issues and real prerequisites as blocked-by. Keep containment and prerequisites apart. If those features are unavailable, state the limitation in the body table
+        - **Issue numbers**: GitHub expands `#number` inside a list into its title and state, which makes lines long. Write the child map and relations as tables
+        - **Flow diagram**: add Mermaid under `Flow diagram (optional)` only when dependencies between children are hard to read from the phase table
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: "The overall problem and goal in two or three short bullets, written as fragments, not full sentences"
+      placeholder: |
+        - No way to see which process used resources during a freeze
+        - Steady recording, incident capture, and a basic report as phase 1 children
+    validations:
+      required: true
+
+  - type: textarea
+    id: shared_context
+    attributes:
+      label: Current state (AS-IS) and target state (TO-BE)
+      description: The current problem and goal this parent owns, one or two sentences each. Put per-child reproduction and implementation details in the children. An intermediate parent does not repeat its direct parent's summary; it states the result it checks separately and why it is split out
+      placeholder: |
+        - AS-IS: shared problem and scope of impact
+        - TO-BE: expected result after every child is done
+        - Why it is split into children:
+        - Evidence (version, commit, documents, observations; unknown if not known):
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and out of scope
+      description: The scope this parent owns and the behavior to keep. Refer to shared rules of the direct parent instead of repeating them
+      placeholder: |
+        - In scope:
+        - Behavior to keep:
+        - Out of scope:
+    validations:
+      required: true
+
+  - type: textarea
+    id: children
+    attributes:
+      label: Child work and order
+      description: List only direct children in the table and mark each as parent or implementation. Work further down is tracked in its own parent. Items in the same phase proceed only once their real prerequisites are met. Use a work name before registering and replace it with the number after. Never register a PR as a child
+      placeholder: |
+        | Phase | Direct child | Type | Result it owns | Direct prerequisite |
+        | :-: | --- | --- | --- | --- |
+        | 1 | #number or work name | Implementation | One-line result | None |
+        | 2 | #number | Implementation | One-line result | #number |
+
+        Items in the same phase can run in parallel once their prerequisites are met. Integration check: what is checked and when
+    validations:
+      required: true
+
+  - type: textarea
+    id: relationships
+    attributes:
+      label: Direct parent and external prerequisites (optional)
+      description: For an intermediate parent, name its direct parent. If only part of an external result is needed, link that implementation issue as a prerequisite; if the whole integrated result is needed, link its parent. Never make a containing parent a prerequisite, and never create a cycle
+      placeholder: |
+        | Relation | Issue | Reason |
+        | --- | --- | --- |
+        | Parent | #number | Direct parent that contains this result |
+        | Prerequisite | #number | The result actually needed and why this waits for it |
+
+  - type: textarea
+    id: flow_diagram
+    attributes:
+      label: Flow diagram (optional)
+      description: Mermaid code, only when the tables are hard to read. State whether lines mean containment or prerequisite, and if both are drawn, separate them with line styles and a legend. Prerequisite arrows point from the work needed first to the work that follows
+      placeholder: |
+        flowchart LR
+          A[Foundation] --> B[Use 1]
+          A --> C[Use 2]
+          B --> D[Integration check]
+          C --> D
+      render: mermaid
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Shared acceptance criteria
+      description: Integrated results only this parent checks. Check the closing results of direct children and the implementations below them. Do not count duplicate or canceled closings as completed work, and carry over the remaining scope. A child PR's Closes keyword must not close the parent automatically
+      placeholder: |
+        - [ ] Closing results and unresolved scope of direct children and the implementations below them checked
+        - [ ] Target behavior and behavior to keep for this parent checked
+        - [ ] Integration between children or of the overall result verified
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: submission_checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked related issues for a parent with the same goal and for duplicate work (including parents without children yet)
+          required: true
+        - label: I plan to track only direct children and to link containment and real prerequisites separately
+          required: true

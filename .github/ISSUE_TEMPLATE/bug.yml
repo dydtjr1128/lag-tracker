@@ -1,0 +1,115 @@
+name: Bug report
+description: Report a malfunction or regression with reproduction details
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **How to write this**
+        - **Title**: the target and the symptom, briefly. Example: `Mark lost after resume from sleep`
+        - **Cause**: separate the confirmed symptom from the suspected cause. You can file with observed evidence even if the cause is unknown
+        - **Issue numbers**: GitHub expands `#number` inside a list into its title and state, which makes lines long. Put one number per list line, and write several numbers or relations as a table or a sentence
+        - **Flow diagram**: add Mermaid under `Flow diagram (optional)` only when the reproduction or processing flow is complex. A short flow fits on one line, such as `input → processing → result`
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: "Two or three short bullets written as fragments, not full sentences. Put details and logs below"
+      placeholder: |
+        - Mark lost after resume from sleep
+        - Freeze right after resume missing from the report
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Current behavior (AS-IS)
+      description: The input or situation where the problem happened and the actual result. One or two sentences are enough for a small bug
+      placeholder: |
+        - Input or situation:
+        - Actual result or error:
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior (TO-BE)
+      description: The correct result for the same input or situation. Do not describe the implementation
+      placeholder: |
+        - Expected result:
+    validations:
+      required: true
+
+  - type: textarea
+    id: flow_diagram
+    attributes:
+      label: Flow diagram (optional)
+      description: Mermaid code, only when the flow is complex (it is inserted as a mermaid code block). Solid lines are the current path and dotted lines the expected path. Leave empty for simple bugs
+      placeholder: |
+        flowchart LR
+          A[Input] --> B{Check}
+          B -->|current| C[Wrong result]
+          B -.->|expected| D[Correct result]
+      render: mermaid
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps or evidence
+      description: Minimal steps and the actual result. If it is hard to reproduce, give when and how often it was seen and the logs or code you checked. If you compared with a version that worked, name it
+      placeholder: |
+        1. Prepare the environment or input
+        2. Do the action that triggers the problem
+        3. Check the result
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Relevant version or commit, Windows version, CPU and GPU class, rights mode. Mark anything you do not know as unknown
+      placeholder: |
+        - Version or commit:
+        - Windows version:
+        - Standard or administrator mode:
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact and references (optional)
+      description: Scope of impact, workarounds, logs, screenshots. Remove secrets and personal data. Do not attach real recordings
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria (optional)
+      description: The correct result to check for the same input or situation, and the behavior to keep. Leave empty if unsure; the implementer fixes it before starting
+      placeholder: |
+        - [ ] Expected behavior confirmed with the reproduction steps
+        - [ ] Existing correct behavior kept
+
+  - type: textarea
+    id: relationships
+    attributes:
+      label: Related issues (optional)
+      description: Duplicates, prerequisites, or related issues you already found. The implementer adds relations and plans when needed
+      placeholder: |
+        | Relation | Issue | Note |
+        | --- | --- | --- |
+        | Prerequisite | #number | Why it must be solved first |
+        | Related | #number | What to compare to tell whether it is the same bug |
+
+  - type: checkboxes
+    id: submission_checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked related issues and whether the latest available version already fixes this bug
+          required: true
+        - label: I removed secrets, personal data, and unnecessary local paths from logs and screenshots, or none apply
+          required: true

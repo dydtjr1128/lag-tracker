@@ -1,0 +1,115 @@
+name: Feature or improvement
+description: Propose a feature, performance, refactoring, or documentation improvement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **How to write this**
+        - **Title**: the target and the desired change, briefly. Example: `Add disk latency to the live screen`
+        - **Issue numbers**: GitHub expands `#number` inside a list into its title and state, which makes lines long. Put one number per list line, and write several numbers or relations as a table or a sentence
+        - **Flow diagram**: add Mermaid under `Flow diagram (optional)` only when the structural or flow change is complex. A short flow fits on one line, such as `input → processing → result`
+        - **Splitting**: split results that can be finished independently into separate implementation issues, and track a shared goal in a parent issue. Track several PRs for the same acceptance criteria in this form
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: "Two or three short bullets written as fragments, not full sentences. Put background and implementation details below"
+      placeholder: |
+        - No disk latency on the live screen
+        - Disk waits visible without opening the report
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Current state and need (AS-IS)
+      description: Who runs into the problem in which situation, and the limits of the current way. One or two sentences are enough for a small change
+      placeholder: |
+        - Current behavior or usage:
+        - Problem or limit:
+    validations:
+      required: true
+
+  - type: textarea
+    id: target_state
+    attributes:
+      label: Target state (TO-BE)
+      description: The result that changes after the work. Describe the implementation in the proposal below
+      placeholder: |
+        - Expected behavior or result after the change:
+    validations:
+      required: true
+
+  - type: textarea
+    id: flow_diagram
+    attributes:
+      label: Flow diagram (optional)
+      description: Mermaid code, only when the structural or flow change is complex (it is inserted as a mermaid code block). Solid lines are the current path and dotted lines the target path. Leave empty for simple changes
+      placeholder: |
+        flowchart LR
+          A[Input] --> B[Current processing] --> C[Current result]
+          A -.->|target| D[New processing] -.-> E[Target result]
+      render: mermaid
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed approach and scope
+      description: The smallest change that reaches the target state, and what is in and out of scope. For a new dependency or feature, name its real use and why existing means cannot solve it. If the approach is undecided, write how to find out next
+      placeholder: |
+        - Proposed approach:
+        - Real use and smaller alternatives (if applicable):
+        - In scope:
+        - Behavior to keep:
+        - Out of scope:
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Checkable results as checkboxes, rather than implementation steps
+      placeholder: |
+        - [ ] Disk latency shown on the live screen
+        - [ ] Live screen still fits in 80 columns
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence (optional)
+      description: The version or commit you checked, related code and documents, user feedback, or measurements. Mark anything you do not know as unknown
+      placeholder: |
+        - Baseline version or commit:
+        - Material checked and observations:
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives and references (optional)
+      description: Whether existing features could be used, alternatives considered, related documents, compatibility impact
+
+  - type: textarea
+    id: relationships
+    attributes:
+      label: Related issues (optional)
+      description: Duplicates, prerequisites, or related issues you already found. The implementer adds relations and plans when needed
+      placeholder: |
+        | Relation | Issue | Note |
+        | --- | --- | --- |
+        | Prerequisite | #number | Why it must finish first |
+        | Related | #number | What to check together |
+
+  - type: checkboxes
+    id: submission_checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked related issues and the current implementation and documents for the same proposal or an existing feature
+          required: true
+        - label: I removed secrets, personal data, and unnecessary local paths from attachments, or none apply
+          required: true

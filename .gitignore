@@ -1,0 +1,8 @@
+# Rust build output
+/target/
+
+# Recordings and reports (user data, never commit)
+/records/
+*.lagtrace
+*.lagtrace-wal
+*.lagtrace-shm
